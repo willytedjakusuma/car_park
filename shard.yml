@@ -1,0 +1,46 @@
+name: car_park
+version: 0.1.0
+
+authors:
+  - willytedjakusuma-moxi <willybudiman.tedjakusuma@moxiworks.com>
+
+crystal: 1.14.0
+
+license: UNLICENSED
+
+targets:
+  car_park:
+    main: src/car_park.cr
+
+  amber:
+    main: lib/amber/src/amber/cli.cr
+
+dependencies:
+  amber:
+    github: amberframework/amber
+    version: 1.4.1
+
+  granite:
+    github: amberframework/granite
+    version: ~> 0.23.2
+
+  quartz_mailer:
+    github: amberframework/quartz-mailer
+    version: ~> 0.8.0
+
+  jasper_helpers:
+    github: amberframework/jasper-helpers
+    version: ~> 1.2.2 
+
+  pg:
+    github: will/crystal-pg
+    version: ~> 0.26.0
+
+  citrine-i18n:
+    github: dare892/citrine-i18n
+    version: ~> 1.0.0
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.5.0
