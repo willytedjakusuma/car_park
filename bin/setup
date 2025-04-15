@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+echo "🚀 setting up project..."
+
+set -e
+
+# Load environment
+export $(grep -v '^#' .env | xargs)
+
+# Install shards
+echo "📦 Installing dependencies..."
+shards install
+
+# Check if PostGIS is installed (on Ubuntu/Debian)
+if ! dpkg -l | grep -q postgis; then
+  echo "PostGIS not found, installing..."
+  sudo apt-get update
+  sudo apt-get install -y postgis postgresql-14-postgis-3
+else
+  echo "PostGIS is already installed."
+fi
+
+# Drop the database if it exists
+echo "🗑 Dropping database (if it exists)..."
+amber db drop || echo "No existing database to drop."
+
+# echo "🗃 creating database"
+amber db create
+
+# Enable PostGIS extension
+echo "🧭 installing postgis"
+PGPASSWORD="$DB_PASSWORD" psql -U "$DB_USER" -h "$DB_HOST" -p "$DB_PORT" -d "$DB_NAME" -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+
+# echo "🧱 migrating database"
+amber db migrate
+
+echo "✅ your project is ready"
