@@ -2,19 +2,20 @@ class CarPark < Granite::Base
   connection pg
   table car_parks
 
-  column id : String, primary: true
+  column id : Int64, primary: true
+  column car_park_no : String
   column address : String
   column location : String
   column type : String?
   column parking_system : String?
   column short_term_parking : String?
-  column free_parking : String?
+  column free_parking : Bool?
   column night_parking : Bool?
   column decks : Int64?
   column gantry_height : Float64?
   column basement : Bool?
   timestamps
-
+  
   # POINT save lat later POINT(long, lat)
   # below methods is to access lat long separately
   # of any CarPark instance that returning lat and long
@@ -30,9 +31,9 @@ class CarPark < Granite::Base
     fetch_coordinate("X")
   end
 
-  def set_location(lat : Float64, long : Float64)
+  def self.set_location(lat : Float64, long : Float64)
     # Construct the POINT string for PostGIS
-    self.location = "POINT(#{long} #{lat})"
+    "POINT(#{long} #{lat})"
   end
 
   # Helper method to execute the coordinate query
