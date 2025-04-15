@@ -15,6 +15,18 @@ class CarPark < Granite::Base
   column gantry_height : Float64?
   column basement : Bool?
   timestamps
+
+  validate_not_blank :car_park_no
+  validate_not_blank :address
+  validate_not_blank :location
+
+  validate_uniqueness :car_park_no
+
+  # custom validation
+  validate :location, "format incorrect" do |car_park|
+    match_data = Regex.new("POINT\\(-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?\\)").match(car_park.location)
+    match_data.is_a?(Regex::MatchData)
+  end
   
   # POINT save lat later POINT(long, lat)
   # below methods is to access lat long separately
