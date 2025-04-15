@@ -125,4 +125,13 @@ module Utils::Svy21::ToWgs84
     
     { lat: lat / RAD_RATIO, long: lon / RAD_RATIO }
   end
+
+  def batch_convert(records : Array(Hash(String, String))) : Hash(String, NamedTuple(lat: Float64, long: Float64))
+    records.each_with_object({} of String => NamedTuple(lat: Float64, long: Float64)) do |record, result|
+      result[record["car_park_no"]] = convert(
+        x_coord: record["x_coord"].to_f,
+        y_coord: record["y_coord"].to_f
+      )
+    end
+  end
 end
