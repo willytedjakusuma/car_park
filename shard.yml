@@ -40,7 +40,13 @@ dependencies:
     github: dare892/citrine-i18n
     version: ~> 1.0.0
 
+  dotenv:
+    github: gdotdesign/cr-dotenv
+    
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
     version: ~> 1.5.0
+
+  debug:
+    github: Sija/debug.cr

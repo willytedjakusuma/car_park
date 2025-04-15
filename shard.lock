@@ -36,6 +36,14 @@ shards:
     git: https://github.com/crystal-lang/crystal-db.git
     version: 0.11.0
 
+  debug:
+    git: https://github.com/sija/debug.cr.git
+    version: 2.0.4
+
+  dotenv:
+    git: https://github.com/gdotdesign/cr-dotenv.git
+    version: 1.0.0
+
   email:
     git: https://github.com/arcage/crystal-email.git
     version: 0.6.4
