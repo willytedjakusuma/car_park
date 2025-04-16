@@ -8,6 +8,9 @@
 .encryption_key
 production.yml
 .DS_Store
-# /bin/
 /node_modules
 /public/dist
+
+# Ignore bin folder except setup
+/bin/
+!/bin/setup
