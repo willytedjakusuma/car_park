@@ -8,6 +8,7 @@ Amber::Server.configure do
   end
 
   routes :api do
+    get "/car_parks/nearest", CarParkController, :nearest
   end
 
   routes :static do
