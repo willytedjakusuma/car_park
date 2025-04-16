@@ -9,7 +9,7 @@ class CarPark < Granite::Base
   column type : String?
   column parking_system : String?
   column short_term_parking : String?
-  column free_parking : Bool?
+  column free_parking : String?
   column night_parking : Bool?
   column decks : Int64?
   column gantry_height : Float64?

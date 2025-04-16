@@ -7,7 +7,7 @@ CREATE TABLE car_parks (
   type TEXT,
   parking_system TEXT,
   short_term_parking TEXT,
-  free_parking BOOLEAN,
+  free_parking TEXt,
   night_parking BOOLEAN,
   decks BIGINT,
   gantry_height DOUBLE PRECISION,
@@ -16,7 +16,7 @@ CREATE TABLE car_parks (
   updated_at TIMESTAMP
 );
 
-ALTER TABLE car_parks ADD CONSTRAINT unique_car_park_no UNIQUE (car_park_no);
+-- ALTER TABLE car_parks ADD CONSTRAINT unique_car_park_no UNIQUE (car_park_no);
 
 -- +micrate Down
 DROP TABLE IF EXISTS car_parks;
