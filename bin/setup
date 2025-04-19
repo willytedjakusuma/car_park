@@ -19,6 +19,15 @@ else
   echo "PostGIS is already installed."
 fi
 
+# Check if Redis is installed
+if ! dpkg -l | grep -q redis-server; then
+  echo "Redis not found, installing..."
+  sudo apt-get update
+  sudo apt-get install -y redis-server
+else
+  echo "Redis is already installed."
+fi
+
 # Drop the database if it exists
 echo "🗑 Dropping database (if it exists)..."
 amber db drop || echo "No existing database to drop."
@@ -30,7 +39,12 @@ amber db create
 echo "🧭 installing postgis"
 PGPASSWORD="$DB_PASSWORD" psql -U "$DB_USER" -h "$DB_HOST" -p "$DB_PORT" -d "$DB_NAME" -c "CREATE EXTENSION IF NOT EXISTS postgis;"
 
-# echo "🧱 migrating database"
+echo "🧱 migrating database"
 amber db migrate
+
+echo "Setting up your data"
+# Run the car_park_loader data inside console
+chmod +x bin/console
+bin/console
 
 echo "✅ your project is ready"

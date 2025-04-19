@@ -24,10 +24,17 @@ class CarPark < Granite::Base
 
   # custom validation
   validate :location, "format incorrect" do |car_park|
+    false unless car_park.location
+
     match_data = Regex.new("POINT\\(-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?\\)").match(car_park.location)
     match_data.is_a?(Regex::MatchData)
   end
-  
+
+  select_statement <<-SQL
+    SELECT *, ST_AsText(location) AS location
+    FROM car_parks
+  SQL
+
   # POINT save lat later POINT(long, lat)
   # below methods is to access lat long separately
   # of any CarPark instance that returning lat and long
@@ -50,8 +57,7 @@ class CarPark < Granite::Base
 
   # Helper method to execute the coordinate query
   private def fetch_coordinate(coord_type : String) : Float64?
-    sql = "SELECT ST_#{coord_type}(location::geometry) FROM car_parks WHERE id = '#{self.id}'"
-    result = pg.query(sql).first
-    result[0].to_f64? if result
+    sql = "SELECT ST_#{coord_type}(location::geometry) FROM car_parks WHERE id = $1"
+    self.class.adapter.database.query_one?(sql, self.id, as: Float64)
   end
 end

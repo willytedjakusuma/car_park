@@ -42,7 +42,7 @@ dependencies:
 
   dotenv:
     github: gdotdesign/cr-dotenv
-    
+
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
