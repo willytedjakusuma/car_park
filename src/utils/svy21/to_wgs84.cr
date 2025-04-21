@@ -1,4 +1,8 @@
 module Utils::Svy21::ToWgs84
+  # Credit here to https://github.com/cgcai
+  # Below calculation was taken from 
+  # https://github.com/cgcai/SVY21/blob/master/Ruby/lib/svy21.rb
+  # With some adjustment to match crystal syntax
   extend self
 
   # Ratio to convert degrees to radians.
