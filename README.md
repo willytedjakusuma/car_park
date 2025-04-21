@@ -30,9 +30,10 @@ These instruction will guide you through how to setup and run this API end point
 ## Prerequisites
 
 Things that need to be installed on your local before we start setting up the projects
-  - Crystal => [Crystal Installation Guide](https://crystal-lang.org/install/)
-  - PostgreSQL => [Ubuntu Installation Guide](https://documentation.ubuntu.com/server/how-to/databases/install-postgresql/index.html)
-
+  1. Crystal => [Crystal Installation Guide](https://crystal-lang.org/install/)
+  2. PostgreSQL => [Ubuntu Installation Guide](https://documentation.ubuntu.com/server/how-to/databases/install-postgresql/index.html)
+  3. Amber => [Amber Dependencies for Ubuntu] => (https://docs.amberframework.org/amber/guides/installation#from-source)
+  4. Amber => [Amber Installation Guide] (https://docs.amberframework.org/amber/guides/installation#from-source)
 ## Development
 
 To start your Amber server:
@@ -49,12 +50,13 @@ To start your Amber server:
     ```yaml
     database_url: postgres://postgres:mypass@localhost:5433/car_park_development
     ```
-2. Run this command to start setup
+3. Rename `env.example` to `.env` and fill it according to your postgres setup
+4. Run this command to start setup
     ```bash
     bin/setup
     ```
-3. Wait until the setup is finished
-4. Start Amber server with `amber watch`
+5. Wait until the setup is finished
+6. Start Amber server with `amber watch`
 
 Now you can visit http://localhost:3000/ from your browser / Postman
 
