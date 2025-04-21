@@ -1,0 +1,11 @@
+#!/usr/bin/env crystal
+require "dotenv"
+Dotenv.load
+
+require "../config/application"
+require "../src/services/car_park_data_loader"
+require "../src/utils/data_gov_sg/car_park_availability"
+require "../src/utils/redis_client"
+
+Services::CarParkDataLoader.call
+

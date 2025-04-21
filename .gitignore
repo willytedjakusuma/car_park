@@ -14,3 +14,4 @@ production.yml
 # Ignore bin folder except setup
 /bin/
 !/bin/setup
+!/bin/console
