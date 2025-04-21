@@ -21,11 +21,13 @@ fi
 echo "📦 Installing dependencies..."
 shards install
 
+PG_VERSION=$(psql -V | awk '{print $3}' | cut -d. -f1)
+
 # Check if PostGIS is installed (on Ubuntu/Debian)
 if ! dpkg -l | grep -q postgis; then
   echo "PostGIS not found, installing..."
   sudo apt-get update
-  sudo apt-get install -y postgis postgresql-14-postgis-3
+  sudo apt-get install -y postgis "postgresql-$PG_VERSION-postgis-3"
 else
   echo "PostGIS is already installed."
 fi
