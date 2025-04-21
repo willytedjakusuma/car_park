@@ -6,6 +6,17 @@ set -e
 # Load environment
 export $(grep -v '^#' .env | xargs)
 
+# Install libsqlite3 if missing
+echo "📦 Checking for SQLite3 native library..."
+if ! dpkg -l | grep -q libsqlite3-dev; then
+  echo "SQLite3 native library not found, installing..."
+  sudo apt-get update
+  sudo apt-get install -y libsqlite3-dev
+else
+  echo "SQLite3 native library is already installed."
+fi
+
+
 # Install shards
 echo "📦 Installing dependencies..."
 shards install
