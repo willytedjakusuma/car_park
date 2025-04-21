@@ -1,50 +1,71 @@
-# car_park
-
+# Car Park
 [![Amber Framework](https://img.shields.io/badge/using-amber_framework-orange.svg)](https://amberframework.org)
 
 This is a project written using [Amber](https://amberframework.org). Enjoy!
 
+## Consideration
+Here I am listing the reason why I am using technology inside this project
+
+  - Amber 
+  
+    - Have built in ORM with Granite 
+    - More Rails like
+
+  - PostgreSQL
+
+    - Have native geometry data type that can be used seamlessly with PostGIS
+
+  - Redis
+
+    - Work as caching in this project so we don't need to always API to the source
+
+  - PostGIS
+
+    - Have function to calculate distance
+
 ## Getting Started
 
-These instructions will get a copy of this project running on your machine for development and testing purposes.
-
-Please see [deployment](https://docs.amberframework.org/amber/deployment) for notes on deploying the project in production.
+These instruction will guide you through how to setup and run this API end point
 
 ## Prerequisites
 
-This project requires [Crystal](https://crystal-lang.org/) ([installation guide](https://crystal-lang.org/docs/installation/)).
+Things that need to be installed on your local before we start setting up the projects
+  - Crystal => [Crystal Installation Guide](https://crystal-lang.org/install/)
+  - PostgreSQL => [Ubuntu Installation Guide](https://documentation.ubuntu.com/server/how-to/databases/install-postgresql/index.html)
 
 ## Development
 
 To start your Amber server:
 
-1. Install dependencies with `shards install`
-2. Build executables with `shards build`
-3. Create and migrate your database with `bin/amber db create migrate`. Also see [creating the database](https://docs.amberframework.org/amber/guides/create-new-app#creating-the-database).
-4. Start Amber server with `bin/amber watch`
+1. On project root folder, run this command 
+    ```bash
+    chmod +x bin/setup
+    ```
+2. Change key `database_url` inside `config/environments/development.yml` to match your postgres database configuration 
+    ```yml
+    database_url: postgres://[postgres_user]:[postgres_password]@[host]:[port]/car_park_development
+    ```
+    e.g
+    ```yaml
+    database_url: postgres://postgres:mypass@localhost:5433/car_park_development
+    ```
+2. Run this command to start setup
+    ```bash
+    bin/setup
+    ```
+3. Wait until the setup is finished
+4. Start Amber server with `amber watch`
 
-Now you can visit http://localhost:3000/ from your browser.
+Now you can visit http://localhost:3000/ from your browser / Postman
 
-Getting an error message you need help decoding? Check the [Amber troubleshooting guide](https://docs.amberframework.org/amber/troubleshooting), post a [tagged message on Stack Overflow](https://stackoverflow.com/questions/tagged/amber-framework), or visit [Amber on Gitter](https://gitter.im/amberframework/amber).
+## Access the API
 
-Using Docker? Please check [Amber Docker guides](https://docs.amberframework.org/amber/guides/docker).
+You can access the api from this url in your browser / postman
 
-## Tests
+`http://localhost:3000/car_parks/nearest?lat=[your_lat_value]&long=[your_long_value]`
 
-To run the test suite:
+## Caching Strategy
 
-```
-crystal spec
-```
-
-## Contributing
-
-1. Fork it ( https://github.com/your-github-user/car_park/fork )
-2. Create your feature branch ( `git checkout -b my-new-feature` )
-3. Commit your changes ( `git commit -am 'Add some feature'` )
-4. Push to the branch ( `git push origin my-new-feature` )
-5. Create a new Pull Request
-
-## Contributors
-
-- [your-github-user](https://github.com/your-github-user) willytedjakusuma-moxi - creator, maintainer
+1. When user request data, we check if redis have data inside it
+2. If Redis have data then return it's data
+3. If data is missing or cache expired we then fetch from API then store it in cache
