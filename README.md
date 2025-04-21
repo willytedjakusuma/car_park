@@ -1,9 +1,9 @@
-# Car Park
+# 🚗 Car Park
 [![Amber Framework](https://img.shields.io/badge/using-amber_framework-orange.svg)](https://amberframework.org)
 
 This is a project written using [Amber](https://amberframework.org). Enjoy!
 
-## Consideration
+## 🧠 Consideration
 Here I am listing the reason why I am using technology inside this project
 
   - Amber 
@@ -23,18 +23,18 @@ Here I am listing the reason why I am using technology inside this project
 
     - Have function to calculate distance
 
-## Getting Started
+## 🚀 Getting Started
 
 These instruction will guide you through how to setup and run this API end point
 
-## Prerequisites
+## 🛠️ Prerequisites
 
 Things that need to be installed on your local before we start setting up the projects
   1. Crystal => [Crystal Installation Guide](https://crystal-lang.org/install/)
   2. PostgreSQL => [Ubuntu Installation Guide](https://documentation.ubuntu.com/server/how-to/databases/install-postgresql/index.html)
   3. Amber => [Amber Dependencies for Ubuntu] => (https://docs.amberframework.org/amber/guides/installation#from-source)
   4. Amber => [Amber Installation Guide] (https://docs.amberframework.org/amber/guides/installation#from-source)
-## Development
+## ▶️ Run App
 
 To start your Amber server:
 
@@ -60,14 +60,17 @@ To start your Amber server:
 
 Now you can visit http://localhost:3000/ from your browser / Postman
 
-## Access the API
+## 🌐 Access the API
 
 You can access the api from this url in your browser / postman
 
 `http://localhost:3000/car_parks/nearest?lat=[your_lat_value]&long=[your_long_value]`
 
-## Caching Strategy
+## 🧊 Caching Strategy
 
 1. When user request data, we check if redis have data inside it
 2. If Redis have data then return it's data
 3. If data is missing or cache expired we then fetch from API then store it in cache
+
+## 🎖️ Credit
+Credit to this [CGCAI/SVY21 Repo](https://github.com/cgcai/SVY21/tree/master/Ruby) for providing svy21 to wgs84 calculation that I implement in this project
